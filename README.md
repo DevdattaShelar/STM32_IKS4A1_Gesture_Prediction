@@ -20,8 +20,7 @@
 * [7. Results](#7-results)
 * [8. Future Work](#8-future-work)
 * [9. Contributing](#9-contributing)
-* [10. License](#10-license)
-* [11. Acknowledgments](#11-acknowledgments)
+
 
 ---
 
@@ -149,7 +148,7 @@ Once the STM32 firmware is flashed and running:
 2.  **[How to see the output]:**
     * If using serial output: Open a serial terminal (e.g., PuTTY, Termite, or the serial monitor in Arduino IDE if you're comfortable with it) connected to the STM32's virtual COM port (check Device Manager for the COM port number, usually `STMicroelectronics STLink Virtual COM Port`). Set the baud rate to `[Your Baud Rate, e.g., 115200]`. You should see predicted gestures being printed.
     * If using LEDs/display: Observe the LEDs or the connected display for gesture indications.
-3.  **Perform Gestures:** Perform the gestures you trained the model on (e.g., wave, clap, swipe left/right, etc.). Observe the system's response.
+3.  **Perform Gestures:** Perform the gestures you trained the model on (e.g. idle,shake and Up-down). Observe the system's response.
 
 ## 7. Results
 
@@ -187,18 +186,11 @@ Contributions are welcome! If you'd like to contribute, please follow these step
 5.  Push to the branch (`git push origin feature/AmazingFeature`).
 6.  Open a Pull Request.
 
-## 10. License
-
-Specify the license under which your project is released. Common open-source licenses include MIT, Apache 2.0, GPL.
-
-This project is licensed under the [Your Chosen License, e.g., MIT License] - see the [LICENSE.md](LICENSE.md) file for details.
-
-## 11. Acknowledgments
+## 10. Acknowledgments
 
 Give credit where credit is due.
 
 * STMicroelectronics for the excellent STM32 and sensor documentation/tools.
-* [Any specific tutorials, articles, or open-source projects that helped you]
-* [Your mentors, teammates, or anyone who provided significant help]
-
+* Thanks to My intership Guide Shripad Govekar for guidance 
+* Thanks to Avinash Mane Sir for giving me this Opportuinity.
 ---
