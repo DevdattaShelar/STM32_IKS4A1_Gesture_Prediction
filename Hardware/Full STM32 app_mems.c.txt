@@ -1,0 +1,91 @@
+/* Full STM32 app_mems.c - Sends clean CSV sensor data (accel + gyro) for ML */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "app_mems.h"
+#include "main.h"
+#include <stdio.h>
+#include "custom_motion_sensors.h"
+#include "lsm6dsv16x_settings.h"
+#include "stm32l4xx_nucleo.h"
+
+/* Private define ------------------------------------------------------------*/
+#define MAX_BUF_SIZE 256  // Maximum UART output buffer size
+
+/* Private variables ---------------------------------------------------------*/
+static char dataOut[MAX_BUF_SIZE]; // Buffer to hold formatted CSV string
+static int32_t accel_x = 0, accel_y = 0, accel_z = 0; // Accelerometer axes
+static int32_t gyro_x = 0, gyro_y = 0, gyro_z = 0;    // Gyroscope axes
+
+/* Initialize MEMS sensors and peripherals ----------------------------------*/
+void MX_MEMS_Init(void)
+{
+  // Initialize onboard LED
+  BSP_LED_Init(LED2);
+
+  // Initialize push button (optional)
+  BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
+
+  // Initialize UART communication (printf goes to USART2)
+  BSP_COM_Init(COM1);
+
+  // Initialize LSM6DSV16X sensor for both accelerometer and gyroscope
+  CUSTOM_MOTION_SENSOR_Init(CUSTOM_LSM6DSV16X_0, MOTION_ACCELERO | MOTION_GYRO);
+
+  // Set accelerometer output data rate and full-scale range
+  CUSTOM_MOTION_SENSOR_SetOutputDataRate(CUSTOM_LSM6DSV16X_0, MOTION_ACCELERO, LSM6DSV16X_ACC_ODR);
+  CUSTOM_MOTION_SENSOR_SetFullScale(CUSTOM_LSM6DSV16X_0, MOTION_ACCELERO, LSM6DSV16X_ACC_FS);
+
+  // Set gyroscope output data rate and full-scale range
+  CUSTOM_MOTION_SENSOR_SetOutputDataRate(CUSTOM_LSM6DSV16X_0, MOTION_GYRO, LSM6DSV16X_GYRO_ODR);
+  CUSTOM_MOTION_SENSOR_SetFullScale(CUSTOM_LSM6DSV16X_0, MOTION_GYRO, LSM6DSV16X_GYRO_FS);
+
+  // Allow time for sensors to stabilize
+  HAL_Delay(5000);
+}
+
+/* Main sensor data collection and transmission function --------------------*/
+void MX_MEMS_Process(void)
+{
+  CUSTOM_MOTION_SENSOR_Axes_t acceleration;      // Struct to hold accel data
+  CUSTOM_MOTION_SENSOR_Axes_t angular_velocity;  // Struct to hold gyro data
+
+  // Read accelerometer data
+  if (CUSTOM_MOTION_SENSOR_GetAxes(CUSTOM_LSM6DSV16X_0, MOTION_ACCELERO, &acceleration) == BSP_ERROR_NONE)
+  {
+    accel_x = acceleration.x;
+    accel_y = acceleration.y;
+    accel_z = acceleration.z;
+  }
+
+  // Read gyroscope data
+  if (CUSTOM_MOTION_SENSOR_GetAxes(CUSTOM_LSM6DSV16X_0, MOTION_GYRO, &angular_velocity) == BSP_ERROR_NONE)
+  {
+    gyro_x = angular_velocity.x;
+    gyro_y = angular_velocity.y;
+    gyro_z = angular_velocity.z;
+  }
+
+  // Format data as CSV: accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z
+  snprintf(dataOut, MAX_BUF_SIZE, "%ld,%ld,%ld,%ld,%ld,%ld\r\n",
+           accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z);
+
+  // Send CSV string over UART
+  printf("%s", dataOut);
+
+  // Delay to approximate 100Hz sampling rate
+  HAL_Delay(10);
+}
+
+/* Optional: Push-button callback (if needed for starting/stopping streaming) */
+void BSP_PB_Callback(Button_TypeDef Button)
+{
+  // Add custom button press behavior here (e.g., toggle data streaming)
+}
+
+#ifdef __cplusplus
+}
+#endif
