@@ -58,7 +58,6 @@ List all the software tools, IDEs, libraries, and frameworks.
         * `pyserial`: For serial communication with the STM32 during data collection.
         * `[Any other specific Python libraries you used]`
 * **Jupyter Notebook / Google Colab:** For developing and documenting the ML pipeline.
-* **[Any specific drivers for the IKS4A1 or STM32]**
 
 ## 4. Project Overview
 
@@ -78,7 +77,7 @@ After collecting raw data for each intended gesture, the data was pre-processed.
 * **Segmentation:** Isolating individual gesture instances from continuous data streams.
 * **Labeling:** Assigning the correct gesture label to each segment.
 * **Normalization/Scaling:** Applying techniques like Min-Max scaling or Standardization to the sensor readings.
-* **Feature Extraction:** (If applicable) Briefly mention if you extracted features like mean, variance, peak-to-peak, etc., or used raw time-series data.
+* **Feature Extraction:** used raw time-series data.
 The resulting dataset, containing features/raw data and corresponding labels, was stored in a [CSV/Numpy array/other format] file.
 
 ### 4.3. Machine Learning Model
@@ -86,7 +85,7 @@ The resulting dataset, containing features/raw data and corresponding labels, wa
 Detail your ML model. What type of model is it? How was it trained?
 
 We developed a custom machine learning model for gesture prediction.
-* **Model Type:** [e.g., Support Vector Machine (SVM), Random Forest, K-Nearest Neighbors (KNN), Long Short-Term Memory (LSTM) Neural Network, Convolutional Neural Network (CNN)].
+* **Model Type:**  1D-Convolutional Neural Network (CNN).
 * **Training:** The model was trained using the custom dataset created in the previous step. We employed standard machine learning practices, including data splitting (training, validation, test sets), hyperparameter tuning, and cross-validation to optimize model performance.
 * **Framework:** [e.g., `scikit-learn`, `TensorFlow`/`Keras`].
 * **Quantization/Optimization (if applicable):** If you optimized the model for embedded deployment (e.g., TensorFlow Lite for Microcontrollers), mention this here.
@@ -106,7 +105,7 @@ Provide clear, step-by-step instructions on how to set up the hardware and softw
 
 ### 5.1. Hardware Connections
 
-Describe how to connect the IKS4A1 to the STM32L412RB-P. If it's a shield, just state that.
+Describe how to connect the IKS4A1 to the STM32L412RB-P.
 
 The IKS4A1 (X-NUCLEO-IKS01A4) expansion board can be directly stacked onto the STM32L412RB-P Nucleo board using the Arduino Uno-compatible connectors. Ensure proper alignment before pushing down firmly.
 
@@ -115,7 +114,7 @@ The IKS4A1 (X-NUCLEO-IKS01A4) expansion board can be directly stacked onto the S
 Instructions for installing necessary software and Python libraries.
 
 1.  **STM32CubeIDE:** Download and install STM32CubeIDE from the STMicroelectronics website.
-2.  **Python:** Install Python [Version] from [python.org](https://www.python.org/).
+2.  **Python:** Install Python [11.3.0] from [python.org](https://www.python.org/).
 3.  **Python Libraries:** Open a terminal or command prompt and install the required Python libraries:
     ```bash
     pip install pandas numpy scikit-learn tensorflow pyserial matplotlib seaborn
@@ -144,9 +143,9 @@ How to use your project once it's set up and running.
 
 Once the STM32 firmware is flashed and running:
 
-1.  **[Describe how the embedded system behaves]:** The STM32 will start acquiring sensor data and performing gesture inference.
+1.  ** The STM32 will start acquiring sensor data and performing gesture inference.
 2.  **[How to see the output]:**
-    * If using serial output: Open a serial terminal (e.g., PuTTY, Termite, or the serial monitor in Arduino IDE if you're comfortable with it) connected to the STM32's virtual COM port (check Device Manager for the COM port number, usually `STMicroelectronics STLink Virtual COM Port`). Set the baud rate to `[Your Baud Rate, e.g., 115200]`. You should see predicted gestures being printed.
+    * If using serial output: Open a serial terminal (e.g., PuTTY, Termite,TeraTerm) connected to the STM32's virtual COM port (check Device Manager for the COM port number, usually `STMicroelectronics STLink Virtual COM Port`). Set the baud rate to `[Your Baud Rate, e.g., 115200]`. You should see predicted gestures being printed.
     * If using LEDs/display: Observe the LEDs or the connected display for gesture indications.
 3.  **Perform Gestures:** Perform the gestures you trained the model on (e.g. idle,shake and Up-down). Observe the system's response.
 
@@ -158,8 +157,6 @@ Showcase your project's performance.
 * **Real-time Performance:** How well does it perform in real-time on the embedded system? (e.g., inference speed, latency).
 * **Challenges and Successes:** Briefly discuss any interesting findings, challenges faced, and how you overcame them. You can include:
     * Confusion Matrix for your ML model.
-    * Plots of sensor data for different gestures.
-    * Demo video (if available, link it!).
 
 ## 8. Future Work
 
