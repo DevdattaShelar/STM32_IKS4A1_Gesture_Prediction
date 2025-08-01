@@ -26,21 +26,17 @@
 
 ## 1. Introduction
 
-Briefly explain what your project does. What is its purpose? What problem does it solve?
 
-This project demonstrates a real-time gesture prediction system leveraging the **STMicroelectronics IKS4A1 Sensor X-NUCLEO-IKS01A4 expansion board** and an **STM32L412RB-P microcontroller board**. We collected a custom dataset of various gestures, trained our own machine learning model to recognize these gestures, and then deployed the model onto the STM32L412RB-P for on-device inference. The system aims to provide an intuitive and efficient way to interact with devices or applications through hand gestures.
+This project demonstrates a real-time gesture prediction system leveraging the **STMicroelectronics IKS4A1 Sensor X-NUCLEO-IKS01A4 expansion board** and an **STM32L412RB-P microcontroller board**. We collected a custom dataset of various gestures, trained our own machine learning model to recognize these gestures. The system aims to provide an intuitive and efficient way to interact with devices or applications through hand gestures.
 
 ## 2. Hardware Used
 
 List all the hardware components used in your project. Be specific with model numbers where possible.
 
 * **STM32L412RB-P Nucleo Board:** The main microcontroller board.
-* **IKS4A1 (X-NUCLEO-IKS01A4) Sensor Expansion Board:** This board integrates multiple sensors, including (mention the specific sensor you primarily used for gestures, e.g., Accelerometer, Gyroscope from the LSM6DSOX or ISM330DHCX).
-    * *Specifically, for gesture recognition, we primarily utilized the data from the [Accelerometer/Gyroscope] of the [LSM6DSOX/ISM330DHCX] sensor on the IKS4A1 board.*
+* **IKS4A1 (X-NUCLEO-IKS01A4) Sensor Expansion Board:** This board integrates multiple sensors, including (Accelerometer, Gyroscope from the LSM6DSV16X ).
+    * *Specifically, for gesture recognition, we primarily utilized the data from the [Accelerometer/Gyroscope] of the [LSM6DSV16X] sensor on the IKS4A1 board.*
 * **USB Cable:** For power and programming the STM32 board.
-* **[Optional] Breadboard and Jumper Wires:** If you made any custom connections.
-* **[Optional] External Power Supply:** If your setup requires it.
-* **[Optional] Display/LEDs:** If you have output indicators on your embedded system.
 
 ## 3. Software Used
 
@@ -61,11 +57,7 @@ List all the software tools, IDEs, libraries, and frameworks.
 
 ## 4. Project Overview
 
-Provide a high-level explanation of the different stages of your project.
-
 ### 4.1. Data Acquisition
-
-Describe how you collected the raw sensor data from the IKS4A1 using the STM32.
 
 We developed a firmware for the STM32L412RB-P to read raw accelerometer and gyroscope data from the IKS4A1 sensor at a high sampling rate. This data was then streamed over a serial (UART) connection to a host PC. A Python script on the PC was used to capture and log this incoming sensor data.
 
@@ -78,17 +70,15 @@ After collecting raw data for each intended gesture, the data was pre-processed.
 * **Labeling:** Assigning the correct gesture label to each segment.
 * **Normalization/Scaling:** Applying techniques like Min-Max scaling or Standardization to the sensor readings.
 * **Feature Extraction:** used raw time-series data.
-The resulting dataset, containing features/raw data and corresponding labels, was stored in a [CSV/Numpy array/other format] file.
+The resulting dataset, containing features/raw data and corresponding labels, was stored in a CSV file.
 
 ### 4.3. Machine Learning Model
 
-Detail your ML model. What type of model is it? How was it trained?
 
 We developed a custom machine learning model for gesture prediction.
 * **Model Type:**  1D-Convolutional Neural Network (CNN).
 * **Training:** The model was trained using the custom dataset created in the previous step. We employed standard machine learning practices, including data splitting (training, validation, test sets), hyperparameter tuning, and cross-validation to optimize model performance.
 * **Framework:** [e.g., `scikit-learn`, `TensorFlow`/`Keras`].
-* **Quantization/Optimization (if applicable):** If you optimized the model for embedded deployment (e.g., TensorFlow Lite for Microcontrollers), mention this here.
 
 ### 4.4. Embedded Implementation
 
@@ -101,25 +91,22 @@ The trained machine learning model was converted into a format suitable for depl
 
 ## 5. Setup and Installation
 
-Provide clear, step-by-step instructions on how to set up the hardware and software.
-
 ### 5.1. Hardware Connections
-
-Describe how to connect the IKS4A1 to the STM32L412RB-P.
 
 The IKS4A1 (X-NUCLEO-IKS01A4) expansion board can be directly stacked onto the STM32L412RB-P Nucleo board using the Arduino Uno-compatible connectors. Ensure proper alignment before pushing down firmly.
 
 ### 5.2. Software Setup
 
 Instructions for installing necessary software and Python libraries.
-
+I have given th complete project zip in repo, just have to download , unzip it ,bulid it and change the app_mems.c file with i have given file.
 1.  **STM32CubeIDE:** Download and install STM32CubeIDE from the STMicroelectronics website.
 2.  **Python:** Install Python [11.3.0] from [python.org](https://www.python.org/).
 3.  **Python Libraries:** Open a terminal or command prompt and install the required Python libraries:
     ```bash
     pip install pandas numpy scikit-learn tensorflow pyserial matplotlib seaborn
     # Add any other specific libraries
-    ```
+    `
+    
 4.  **[Optional] Jupyter Notebook/Google Colab:**
     * For Jupyter: `pip install jupyter` and then `jupyter notebook` to launch.
     * For Google Colab: Access through your Google account.
@@ -139,8 +126,6 @@ How to compile and flash the firmware to the STM32.
 
 ## 6. Usage
 
-How to use your project once it's set up and running.
-
 Once the STM32 firmware is flashed and running:
 
 1.  ** The STM32 will start acquiring sensor data and performing gesture inference.
@@ -153,11 +138,10 @@ Once the STM32 firmware is flashed and running:
 
 Showcase your project's performance.
 
-* **Model Accuracy:** Mention the accuracy achieved by your ML model on the test dataset.
-* **Real-time Performance:** How well does it perform in real-time on the embedded system? (e.g., inference speed, latency).
-* **Challenges and Successes:** Briefly discuss any interesting findings, challenges faced, and how you overcame them. You can include:
-    * Confusion Matrix for your ML model.
-
+* **Model Accuracy:** 99%.
+* **Real-time Performance:** Model is recognizing Gestures quickly and accurately.
+* **Challenges and Successes:** The Main challenge that i faced while doing this project was about the dataset, what are the correct methods to capture the gesture data, how to perform gesture correctly,
+  in the end when the dataset was finished, it was to clean so model was tending to overfit.
 ## 8. Future Work
 
 Ideas for improving or expanding the project.
