@@ -77,7 +77,7 @@ void MX_MEMS_Process(void)
   printf("%s", dataOut);
 
   // Delay to approximate 100Hz sampling rate
-  HAL_Delay(10);
+  HAL_Delay(15);
 }
 
 /* Optional: Push-button callback (if needed for starting/stopping streaming) */
