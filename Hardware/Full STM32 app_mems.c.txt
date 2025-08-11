@@ -1,3 +1,4 @@
+/*This is my code
 /* Full STM32 app_mems.c - Sends clean CSV sensor data (accel + gyro) for ML */
 
 #ifdef __cplusplus
@@ -89,3 +90,4 @@ void BSP_PB_Callback(Button_TypeDef Button)
 #ifdef __cplusplus
 }
 #endif
+
