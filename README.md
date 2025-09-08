@@ -31,8 +31,6 @@ This project demonstrates a real-time gesture prediction system leveraging the *
 
 ## 2. Hardware Used
 
-List all the hardware components used in your project. Be specific with model numbers where possible.
-
 * **STM32L412RB-P Nucleo Board:** The main microcontroller board.
 * **IKS4A1 (X-NUCLEO-IKS01A4) Sensor Expansion Board:** This board integrates multiple sensors, including (Accelerometer, Gyroscope from the LSM6DSV16X ).
     * *Specifically, for gesture recognition, we primarily utilized the data from the [Accelerometer/Gyroscope] of the [LSM6DSV16X] sensor on the IKS4A1 board.*
@@ -40,7 +38,6 @@ List all the hardware components used in your project. Be specific with model nu
 
 ## 3. Software Used
 
-List all the software tools, IDEs, libraries, and frameworks.
 
 * **STM32CubeIDE:** For embedded code development, compilation, and flashing.
 * **STM32CubeMX:** For configuring the STM32 microcontroller peripherals (often integrated into STM32CubeIDE).
@@ -62,8 +59,6 @@ List all the software tools, IDEs, libraries, and frameworks.
 We developed a firmware for the STM32L412RB-P to read raw accelerometer and gyroscope data from the IKS4A1 sensor at a high sampling rate. This data was then streamed over a serial (UART) connection to a host PC. A Python script on the PC was used to capture and log this incoming sensor data.
 
 ### 4.2. Dataset Creation
-
-Explain how you processed the raw data to create your custom dataset for gesture recognition.
 
 After collecting raw data for each intended gesture, the data was pre-processed. This involved:
 * **Segmentation:** Isolating individual gesture instances from continuous data streams.
