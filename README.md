@@ -136,7 +136,7 @@ Once the STM32 firmware is flashed and running:
 
 ## 7. Results
 
-Showcase your project's performance.
+project's performance.
 
 * **Model Accuracy:** 99%.
 * **Real-time Performance:** Model is recognizing Gestures quickly and accurately.
@@ -156,8 +156,6 @@ Ideas for improving or expanding the project.
 
 ## 9. Contributing
 
-Guidelines for others who might want to contribute to your project.
-
 Contributions are welcome! If you'd like to contribute, please follow these steps:
 
 1.  Fork the repository.
@@ -168,8 +166,6 @@ Contributions are welcome! If you'd like to contribute, please follow these step
 6.  Open a Pull Request.
 
 ## 10. Acknowledgments
-
-Give credit where credit is due.
 
 * STMicroelectronics for the excellent STM32 and sensor documentation/tools.
 * Thanks to My intership Guide Shripad Govekar for guidance 
